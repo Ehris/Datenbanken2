@@ -227,8 +227,8 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
         outfile.flush();
         outfile.close();
 
-//        for(unsigned int i = 0; i < x.size(); i++) {
-//            std::cout << "Column entry[" << i << "]: " << x[i] << std::endl;
+//        for(unsigned int i = 0; i < simpleColumnRepresentation.size(); i++) {
+//            std::cout << "Column entry[" << i << "]: " << simpleColumnRepresentation[i] << std::endl;
 //        }
 
         return true;
