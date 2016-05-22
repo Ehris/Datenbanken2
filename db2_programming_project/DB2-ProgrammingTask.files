@@ -1,0 +1,12 @@
+compression/dictionary_compressed_column.hpp
+compression/run_length_compressed_column.hpp
+core/base_column.hpp
+core/column.hpp
+core/column_base_typed.hpp
+core/compressed_column.hpp
+core/global_definitions.hpp
+core/lookup_array.hpp
+doc/documentation.hpp
+base_column.cpp
+main.cpp
+unittest.cpp
