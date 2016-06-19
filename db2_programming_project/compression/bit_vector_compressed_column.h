@@ -204,8 +204,6 @@ public:
 
     template<class T>
     bool BitVectorCompressedColumn<T>::store(const std::string& path_){
-        // Recreate normal/standard column form?
-
         std::string path(path_);
         path += _name;
 
@@ -214,25 +212,9 @@ public:
         std::ofstream outfile (path.c_str(), std::fstream::out | std::fstream::binary);
         boost::archive::binary_oarchive oa(outfile);
 
-//        oa << columnEntries;
-
-        // REMAPS TO THE INITIAL VALUES. PLACEHOLDER UNTIL REAL REQUIREMENTS FOR THIS METHOD ARE CLEAR TO US.
-        std::vector<T> simpleColumnRepresentation;
-        for(unsigned int i = 0; i < bitVectorPair.second[0].size(); i++) {
-            for(unsigned int j = 0; j < bitVectorPair.first.size(); j++) {
-                if(bitVectorPair.second[j][i] == '1') {
-                    simpleColumnRepresentation.push_back(bitVectorPair.first[j]);
-                }
-            };
-        }
-        oa << simpleColumnRepresentation;
-
+        oa << bitVectorPair;
         outfile.flush();
         outfile.close();
-
-//        for(unsigned int i = 0; i < simpleColumnRepresentation.size(); i++) {
-//            std::cout << "Column entry[" << i << "]: " << simpleColumnRepresentation[i] << std::endl;
-//        }
 
         return true;
     }
@@ -245,8 +227,7 @@ public:
         std::ifstream infile (path.c_str(), std::fstream::in | std::fstream::binary);
         boost::archive::binary_iarchive ia(infile);
 
-//        ia >> columnEntries;
-
+        ia >> bitVectorPair;
         infile.close();
 
         return true;
@@ -266,9 +247,9 @@ public:
 
     template<class T>
     unsigned int BitVectorCompressedColumn<T>::getSizeinBytes() const throw(){
-        // What shall be returned? Size of columnEntries and dictionary?
-//        return columnEntries.capacity() * sizeof(T);
-        return 10;
+        int size = bitVectorPair.first.capacity() * sizeof(T);
+        size += bitVectorPair.second.capacity() * sizeof(std::string);
+        return size;
     }
 
 /***************** End of Implementation Section ******************/
