@@ -10,3 +10,6 @@ doc/documentation.hpp
 base_column.cpp
 main.cpp
 unittest.cpp
+compression/delta_compressed_column.h
+compression/bit_vector_compressed_column.h
+unittest.hpp
