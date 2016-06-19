@@ -7,6 +7,7 @@
 
 /*this is the include for the example compressed column with empty implementation*/
 #include <compression/dictionary_compressed_column.hpp>
+#include <compression/run_length_compressed_column.hpp>
 
 #include  "unittest.hpp"
 
@@ -15,19 +16,19 @@ using namespace CoGaDB;
 int main(){
     /*Adapt the Column to your implemented method*/
             std::cout <<"Dic: "<< std::endl;
-    if(!unittest<Column, int>()){
+    if(!unittest<RunLengthCompressedColumn, int>()){
 		std::cout << "At least one Unittest Failed!" << std::endl;	
 		return -1;	
 	}
 	std::cout << "Unitests Passed!" << std::endl;
 
-    if(!unittest<Column,float>()){
+    if(!unittest<RunLengthCompressedColumn,float>()){
 		std::cout << "At least one Unittest Failed!" << std::endl;	
 		return -1;	
 	}
 	std::cout << "Unitests Passed!" << std::endl;
 
-    if(!unittest<Column ,std::string>()){
+    if(!unittest<RunLengthCompressedColumn ,std::string>()){
         std::cout << "At least one Unittest Failed!" << std::endl;
 		return -1;	
 	}

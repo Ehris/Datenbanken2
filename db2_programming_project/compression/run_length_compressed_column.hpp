@@ -203,8 +203,6 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
 
     template<class T>
     bool RunLengthCompressedColumn<T>::store(const std::string& path_){
-        // Recreate normal/standard column form?
-
         std::string path(path_);
         path += _name;
 
@@ -213,23 +211,9 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
         std::ofstream outfile (path.c_str(), std::fstream::out | std::fstream::binary);
         boost::archive::binary_oarchive oa(outfile);
 
-//        oa << runLengthColumnPair;
-
-        // REMAPS TO THE INITIAL VALUES. PLACEHOLDER UNTIL REAL REQUIREMENTS FOR THIS METHOD ARE CLEAR TO US.
-        std::vector<T> simpleColumnRepresentation;
-        for(unsigned int i = 0; i < runLengthColumnPair.first.size(); i++) {
-            for(unsigned int j = 0; j < runLengthColumnPair.first[i]; j++) {
-                simpleColumnRepresentation.push_back(runLengthColumnPair.second[i]);
-            }
-        }
-        oa << simpleColumnRepresentation;
-
+        oa << runLengthColumnPair;
         outfile.flush();
         outfile.close();
-
-//        for(unsigned int i = 0; i < simpleColumnRepresentation.size(); i++) {
-//            std::cout << "Column entry[" << i << "]: " << simpleColumnRepresentation[i] << std::endl;
-//        }
 
         return true;
     }
@@ -242,7 +226,7 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
         std::ifstream infile (path.c_str(), std::fstream::in | std::fstream::binary);
         boost::archive::binary_iarchive ia(infile);
 
-//        ia >> runLengthColumnPair;
+        ia >> runLengthColumnPair;
         infile.close();
 
         return true;
@@ -264,8 +248,9 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
 
     template<class T>
     unsigned int RunLengthCompressedColumn<T>::getSizeinBytes() const throw(){
-        // What shall be returned? Size of runLengthColumnPair?
-        return 10;
+        int size = runLengthColumnPair.first.capacity() * sizeof(unsigned int);
+        size += runLengthColumnPair.second.capacity() * sizeof(T);
+        return size;
     }
 
 /***************** End of Implementation Section ******************/
