@@ -170,8 +170,6 @@ public:
         std::string path(path_);
         path += _name;
 
-//        std::cout << "Writing Column '" << _name << "' to File '" << path << "'" << std::endl;
-
         std::ofstream outfile (path.c_str(), std::fstream::out | std::fstream::binary);
         boost::archive::binary_oarchive oa(outfile);
 
