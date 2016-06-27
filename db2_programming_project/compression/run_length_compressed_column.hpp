@@ -79,8 +79,6 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
             runLengthColumnPair.first.back()++;
         }
 
-//        std::cout << "NV: " << new_value << " FR: " << runLengthColumnPair.first.back() << " LV: " << runLengthColumnPair.second.back() << std::endl;
-
         return true;
     }
 
@@ -142,23 +140,6 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
         }
 
         return true;
-
-        // In this former code, we were not sure how to implement the behavior for the case, that: runLengthColumnPair.first[i] != 1
-//        unsigned int counter = 0;
-//        for(unsigned int i = 0; i < runLengthColumnPair.first.size(); i++) {
-//            for(unsigned int j = 0; j < runLengthColumnPair.first[i]; j++) {
-//                if(counter == tid) {
-//                    if(runLengthColumnPair.first[i] == 1) {
-//                        runLengthColumnPair.second[i] = boost::any_cast<T>(new_value);
-//                    } else {
-//                        // Add behavior.
-//                    }
-//                    return true;
-//                }
-//                counter++;
-//            }
-//        }
-//        return false;
     }
 
     template<class T>
@@ -205,8 +186,6 @@ class RunLengthCompressedColumn : public CompressedColumn<T>{
     bool RunLengthCompressedColumn<T>::store(const std::string& path_){
         std::string path(path_);
         path += _name;
-
-//        std::cout << "Writing Column '" << _name << "' to File '" << path << "'" << std::endl;
 
         std::ofstream outfile (path.c_str(), std::fstream::out | std::fstream::binary);
         boost::archive::binary_oarchive oa(outfile);
