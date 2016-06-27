@@ -184,8 +184,6 @@ public:
             bitVectorPair.second[i].erase(bitVectorPair.second[i].begin() + tid);
         }
 
-        // Erase Pair when string consists only of Zeros?
-
         return true;
     }
 
@@ -206,8 +204,6 @@ public:
     bool BitVectorCompressedColumn<T>::store(const std::string& path_){
         std::string path(path_);
         path += _name;
-
-//        std::cout << "Writing Column '" << _name << "' to File '" << path << "'" << std::endl;
 
         std::ofstream outfile (path.c_str(), std::fstream::out | std::fstream::binary);
         boost::archive::binary_oarchive oa(outfile);
